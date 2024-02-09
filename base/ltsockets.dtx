@@ -31,8 +31,8 @@
 %%% From File: ltsockets.dtx
 %
 %    \begin{macrocode}
-\def\ltsocketsversion{0.9a}
-\def\ltsocketsdate{2024-02-04}
+\def\ltsocketsversion{0.9b}
+\def\ltsocketsdate{2024-02-09}
 %    \end{macrocode}
 %
 %<*driver>
@@ -603,7 +603,8 @@
 %   the only command that would appear inside macro code in packages.
 %
 %   For performance reasons there is no explicit check that the socket
-%   was declared!
+%   was declared! The command is not defined as a protected command so
+%   that it works for example also at the end of a tabular.
 %
 %   The different L3 programming layer commands are really doing the
 %   same thing: they grab as many arguments as defined as inputs for the socket
@@ -834,7 +835,7 @@
           {
             \cs_generate_from_arg_count:cNnn
               { @@_#1_plug_#2:w }
-              \cs_new_protected:Npn
+              \cs_new:Npn
               { \int_use:c { c_@@_#1_args_int } }
               {#3}
 %    \end{macrocode}
@@ -862,7 +863,7 @@
           {
             \cs_generate_from_arg_count:cNnn
               { @@_#1_plug_#2:w }
-              \cs_set_protected:Npn
+              \cs_set:Npn
               { \int_use:c { c_@@_#1_args_int } }
               {#3}
             \@@_debug_term:n
@@ -907,7 +908,7 @@
 %  
 %  
 %  \begin{macro}{\socket_use:nw,\socket_use:n,\socket_use:nn,\socket_use:nnn,\socket_use:nnnn}
-%    
+%  \changes{v0.9b}{2022/02/09}{unprotect definition}
 %    And using it is more or less a \cs{use:c} so very lightweight. We do not
 %    add a runtime check for speed reasons!
 %
@@ -919,10 +920,10 @@
 %    arguments (socket inputs plus one) in the L3 layer code.
 %
 %    \begin{macrocode}
-\cs_new_protected:Npn \socket_use:nw #1 {
-  \@@_debug_term:n
-    { Socket~ '#1'~ containing~ plug~
-      '\str_use:c { l_@@_#1_plug_str }'~ used. }
+\cs_new:Npn \socket_use:nw #1 {
+%  \@@_debug_term:n
+%    { Socket~ '#1'~ containing~ plug~
+%      '\str_use:c { l_@@_#1_plug_str }'~ used. }
   \use:c { @@_#1_plug_ \str_use:c { l_@@_#1_plug_str } :w }
 }
 %    \end{macrocode}
@@ -1064,6 +1065,3 @@
 ^^A  mode: latex
 ^^A  coding: utf-8-unix
 ^^A  End: 
-
-
-
