@@ -518,4 +518,13 @@
     \foo { a , bcd ; e } [;]
   }
 
+\TEST { SplitKeyval }
+  {
+    \DeclareDocumentCommand { \foo } { >{\SplitKeyval{a,b=B}} O{} }
+      { \TYPE { \tl_to_str:n { |#1| } } }
+    \foo
+    \foo [b=c,a]
+    \foo [b,a=A]
+  }
+
 \END
