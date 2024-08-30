@@ -42,7 +42,7 @@
     \texttt{clsguide.tex} for full details.}%
 }
 
-\date{2024-06-19}
+\date{2024-08-30}
 
 \NewDocumentCommand\cs{m}{\texttt{\textbackslash\detokenize{#1}}}
 \NewDocumentCommand\marg{m}{\arg{#1}}
@@ -976,6 +976,30 @@ contrast, in the second example it will never be called with option |landscape|
 as in that case \textsf{article} is passed options only by the default option
 handler, but this handler is not used for |landscape| because that option is
 explicitly declared.
+
+\subsection{Testing dates of other code}
+
+\begin{decl}
+  |\IfPackageAtLeast(TF)| \arg{package} \arg{date} \arg{true code} \arg{false code}\\
+  |\IfClassAtLeast(TF)| \arg{class} \arg{date} \arg{true code} \arg{false code}\\
+  |\IfFileAtLeast(TF)| \arg{file} \arg{date} \arg{true code} \arg{false code}
+\end{decl}
+There are occasions when you need to test if one package if another package has
+a particular version (assuming it has been loaded). This can be done using the
+commands |\IfPackageAtLeastTF|, etc. Separate commands available to test
+packages, classes and general files: in all cases, they rely on the existence
+of a |\Provides...| line in the appropriate file being queried. Three versions
+of each command are available, ending |T|, |F| and |TF|, which indicate the
+outcome branches required. Thus for example |\IfPakcageAtLeastT| does not need
+a \meta{false code} argument. The \meta{date} argument can be given either in
+ISO (|YYYY-MM-DD|) or traditional \LaTeX{} (|YYYY/MM/DD|) formats.
+
+\begin{decl}
+  |\IfFormatAtLeast(TF)| \arg{date} \arg{true code} \arg{false code}
+\end{decl}
+Tests the release date of the \LaTeX{} format and selects the appropriate
+branch. As for the package and class tests described above, |T|, |F| and |TF|
+versions are available.
 
 \subsection{Safe file commands}
 
