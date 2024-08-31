@@ -42,7 +42,7 @@
     \texttt{clsguide.tex} for full details.}%
 }
 
-\date{2024-08-30}
+\date{2024-08-31}
 
 \NewDocumentCommand\cs{m}{\texttt{\textbackslash\detokenize{#1}}}
 \NewDocumentCommand\marg{m}{\arg{#1}}
@@ -366,7 +366,8 @@ The outline of a class or package file is:
    declaring new variables, commands and fonts; and loading other files.
 \end{description}
 
-\subsection{Identification}
+\subsection{Identification%
+  \label{sec:ID}}
 
 The first thing a class or package file does is identify itself.
 Package files do this as follows:
@@ -977,29 +978,46 @@ as in that case \textsf{article} is passed options only by the default option
 handler, but this handler is not used for |landscape| because that option is
 explicitly declared.
 
-\subsection{Testing dates of other code}
+\subsection{Useful status tests}
+
+A number of utility status tests are available which can be used by package and
+class authors to query the presence and date of other code, the current kernel
+release and other related ideas. Three forms of each test are provided, one
+requiring arguments for both \meta{true} and \meta{false} branches, one
+requiring only a \meta{true} branch and one requiring only a \meta{false}
+branch. These are indicated in their names as |TF|, |T| and |F|, respectively.
+Here, we document only the |TF| versions: the other forms are however
+available.
 
 \begin{decl}
-  |\IfPackageAtLeast(TF)| \arg{package-name} \arg{date} \arg{true code} \arg{false code}\\
-  |\IfClassAtLeast(TF)| \arg{class-name} \arg{date} \arg{true code} \arg{false code}\\
-  |\IfFileAtLeast(TF)| \arg{file-name} \arg{date} \arg{true code} \arg{false code}
+  |\IfPackageLoadedTF| \arg{package-name} \arg{true code} \arg{false code}\\
+  |\IfClassLoadedTF| \arg{class-name} \arg{true code} \arg{false code}\\
+  |\IfFileLoadedTF| \arg{file-name} \arg{true code} \arg{false code}
 \end{decl}
-There are occasions when you need to test if a package is
-at least a particular date (assuming it has been loaded). This can be done using the
-commands |\IfPackageAtLeastTF|, etc. Separate commands are available to test
-packages, classes and general files: in all cases, they rely on the existence
-of a |\Provides...| line in the file being queried. Three versions
-of each command are available, ending |T|, |F| and |TF|, which indicate the
-outcome branches required. Thus for example |\IfPakcageAtLeastT| does not need
-a \meta{false code} argument. The \meta{date} argument can be given either in
-ISO (\textsc{yyyy-mm-dd}) or traditional \LaTeX{} (\textsc{yyyy/mm/dd}) formats.
+These commands test if the named package, class or file is loaded: this
+requires that a matching |\Provides...| line has been given, as described in
+Section~\ref{sec:ID}. In the case of \cs{IfFileLoadedTF}, the full
+\meta{file-name} must be provided; in contrast, no extension should be given if
+testing for a package or class.
 
 \begin{decl}
-  |\IfFormatAtLeast(TF)| \arg{date} \arg{true code} \arg{false code}
+  |\IfPackageAtLeastTF| \arg{package-name} \arg{date} \arg{true code} \arg{false code}\\
+  |\IfClassAtLeastTF| \arg{class-name} \arg{date} \arg{true code} \arg{false code}\\
+  |\IfFileAtLeastTF| \arg{file-name} \arg{date} \arg{true code} \arg{false code}
 \end{decl}
-Tests the release date of the \LaTeX{} format and selects the appropriate
-branch. As for the package and class tests described above, |T|, |F| and |TF|
-versions are available.
+These tests are used to check if a package or class has been loaded with at
+least a given \meta{date}. The \meta{date} is compared with that in the
+optional argument to \cs{Provides...} (as described in Section~\ref{sec:ID}).
+As for \cs{Provides...}, the \meta{date} should be given in the form
+\textsc{yyyy-mm-dd}. If the package or class is not loaded, the \meta{false}
+branch will be taken.
+
+\begin{decl}
+  |\IfFormatAtLeastTF| \arg{date} \arg{true code} \arg{false code}
+\end{decl}
+Tests the release \meta{date} of the \LaTeX{} format and selects the
+appropriate branch. This will reflect any roll forward or back that has been
+applied: the apparent date of the format will be that after roll back.
 
 \subsection{Safe file commands}
 
