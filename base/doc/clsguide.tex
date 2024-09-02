@@ -998,10 +998,10 @@ available.
   |\IfFileLoadedTF| \arg{file-name} \arg{true code} \arg{false code}
 \end{decl}
 These commands test whether the named package, class or file is loaded: this
-requires that a matching |\Provides...| line has been given, as described in
-Section~\ref{sec:ID}. In the case of \cs{IfFileLoadedTF}, the full
-\meta{file-name} must be provided; in contrast, no extension should be given if
-testing for a package or class.
+requires that this information is available in an appropriate |\Provides...|
+line, as described in Section~\ref{sec:ID}. In the case of \cs{IfFileLoadedTF},
+the full \meta{file-name} must be provided; in contrast, no extension should be
+given if testing for a package or class.
 
 \begin{decl}
   |\IfPackageLoadedWithOptionsTF| \arg{package-name} \arg{options} \arg{true code} \arg{false code}\\
