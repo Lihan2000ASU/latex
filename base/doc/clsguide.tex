@@ -1003,6 +1003,15 @@ Section~\ref{sec:ID}. In the case of \cs{IfFileLoadedTF}, the full
 testing for a package or class.
 
 \begin{decl}
+  |\IfPackageLoadedWithOptionsTF| \arg{package-name} \args{options} \arg{true code} \arg{false code}\\
+  |\IfClassLoadedOptionsTF| \arg{class-name} \args{options} \arg{true code} \arg{false code}
+\end{decl}
+These commands test if the named package or class was loaded with
+\emph{exactly} the \meta{options} specified. Thus the package or class must be
+loaded (giving a \texttt{true} result for \cs{If...LoadedT}) and the option
+list used when loading it must be identifical to the \meta{options}.
+
+\begin{decl}
   |\IfPackageAtLeastTF| \arg{package-name} \arg{date} \arg{true code} \arg{false code}\\
   |\IfClassAtLeastTF| \arg{class-name} \arg{date} \arg{true code} \arg{false code}\\
   |\IfFileAtLeastTF| \arg{file-name} \arg{date} \arg{true code} \arg{false code}
