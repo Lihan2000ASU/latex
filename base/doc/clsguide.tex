@@ -1017,8 +1017,9 @@ list used when loading it must be identifical to the \meta{options}.
   |\IfClassAtLeastTF| \arg{class-name} \arg{date} \arg{true code} \arg{false code}\\
   |\IfFileAtLeastTF| \arg{file-name} \arg{date} \arg{true code} \arg{false code}
 \end{decl}
-These tests are used to check if a package or class has been loaded with at
-least a given \meta{date}. The \meta{date} is compared with that in the
+These tests are used to check wheteher the date information given in the
+|\Provides...| line of a package or class is least a given \meta{date}.
+The \meta{date} is compared with that in the
 optional argument to \cs{Provides...} (as described in Section~\ref{sec:ID}).
 As for \cs{Provides...}, the \meta{date} should be given in the form
 `\textsc{yyyy-mm-dd}' or `\textsc{yyyy/mm/dd}'. If the package or class is not
